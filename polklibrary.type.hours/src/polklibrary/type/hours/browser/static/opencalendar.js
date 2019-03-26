@@ -57,10 +57,7 @@ var OpenCalendar = {
             
             var FriendlyDay = this.FriendlyDays[StartDate.getDay()];
             var FriendlyMonth = this.FriendlyMonths[StartDate.getMonth()];
-            var HTML = $('<div>').addClass('calendar-info').html(`
-                <div class="calendar-date">${FriendlyMonth} ${StartDate.getDate()}</div>
-                <div class="calendar-day">(${FriendlyDay})</div>
-            `);
+            var HTML = $('<div>').addClass('calendar-info').html('<div class="calendar-date">'+FriendlyMonth + ' ' + StartDate.getDate()+'</div><div class="calendar-day">('+FriendlyDay+')</div>');
             
             if (typeof HoursCache[ActiveLocation] !== 'undefined'){
                 for (var j in HoursCache[ActiveLocation][Id]){
@@ -72,18 +69,18 @@ var OpenCalendar = {
                     var FriendlyStartTime = this.NoonOrMidnight(StartDT.format("h:MMtt"));
                     var FriendlyEndTime = this.NoonOrMidnight(EndDT.format("h:MMtt"));
                     if (hours.message != ''){
-                        $(HTML).append(`<div class="calendar-message">${hours.message}</div>`);
+                        $(HTML).append('<div class="calendar-message">'+hours.message+'</div>');
                     }
                     else if (hours.is_open) {
-                        $(HTML).append(`<div class="calendar-time">${FriendlyStartTime} to ${FriendlyEndTime}</div>`);
+                        $(HTML).append('<div class="calendar-time">'+FriendlyStartTime+' to '+FriendlyEndTime+'</div>');
                     }
                     else {
-                        $(HTML).append(`<div class="calendar-time calendar-closed">Closed</div>`);
+                        $(HTML).append('<div class="calendar-time calendar-closed">Closed</div>');
                     }
                     
                 }
                 if (typeof HoursCache[ActiveLocation][Id] === 'undefined'){
-                    $(HTML).append(`<div class="calendar-time calendar-tbd">TBD</div>`);
+                    $(HTML).append('<div class="calendar-time calendar-tbd">TBD</div>');
                 }
             }
             
