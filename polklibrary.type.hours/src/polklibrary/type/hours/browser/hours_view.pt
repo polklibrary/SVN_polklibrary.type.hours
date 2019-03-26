@@ -46,6 +46,7 @@
                 left: -2px;
                 border: 2px solid #51baff;
                 text-align: center;
+                border-radius: 0 0 5px 5px
             }
             .calendar-date {
                 font-weight: bold;
