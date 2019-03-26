@@ -24,16 +24,10 @@ class HoursView(BrowserView):
         cache = {}
         if obj.cached == None or obj.cached == "" or obj.cached == {}:
 
-            mapping = {}
-            mapping_rows = obj.mapping.replace('\r','').split('\n')
-            for row in mapping_rows:
-                columns = row.split('==')
-                mapping[columns[0]] = columns[1]
-        
             reader = csv.reader(StringIO.StringIO(obj.csv), csv.excel)
             for library, startdate, start, end, message in reader:
             
-                lm = mapping[library].encode('ascii','ignore')
+                lm = library.encode('ascii','ignore')
                 
                 # if library doesn't exist, add it
                 if lm not in cache:
@@ -45,6 +39,7 @@ class HoursView(BrowserView):
                     
                 start_timestamp = ""
                 end_timestamp = ""
+                is_open = (start != '' and end != '')
                 
                 if is_open:
                     start_dt = datetime.datetime.strptime(startdate + ' ' + start, '%Y-%m-%d %H:%M')

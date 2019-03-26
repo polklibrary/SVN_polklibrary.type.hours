@@ -25,13 +25,7 @@ class IHours(model.Schema):
             required=False,
             default=u"<p></p>",
         )
-        
-    mapping = schema.Text(
-            title=u"Library to CSS Class Mapping",
-            description=u"Example one per line: Polk==campus-osh",
-            required=True,
-        )
-
+       
     csv = schema.Text(
             title=u"CSV Data",
             required=True,
