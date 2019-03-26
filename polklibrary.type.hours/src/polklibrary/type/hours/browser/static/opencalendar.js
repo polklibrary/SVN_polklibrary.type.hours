@@ -62,7 +62,7 @@ var OpenCalendar = {
                 <div class="calendar-day">(${FriendlyDay})</div>
             `);
             
-            if (typeof ActiveLocation !== 'undefined'){
+            if (typeof HoursCache[ActiveLocation] !== 'undefined'){
                 for (var j in HoursCache[ActiveLocation][Id]){
                     var hours = HoursCache[ActiveLocation][Id][j];
                     
