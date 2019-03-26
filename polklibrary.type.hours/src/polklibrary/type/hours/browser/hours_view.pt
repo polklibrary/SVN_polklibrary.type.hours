@@ -22,11 +22,29 @@
                 flex-direction: row;
                 flex-wrap: wrap;
             }
+           
             .calendar-info {
                 background-color: #eee;
-                width: 139px;
+                width: 135px;
                 border: 1px solid #aaa;
                 padding: 10px 5px;
+                text-align: center;
+                position: relative;
+            }
+            .calendar-today {
+                border: 2px solid #51baff;
+            }
+            .calendar-today::before {
+                background-color: #51baff;
+                color: white;
+                content: "Today";
+                position: absolute;
+                font-size: 14px;
+                font-weight: bold;
+                bottom: -20px;
+                width: 100%;
+                left: -2px;
+                border: 2px solid #51baff;
                 text-align: center;
             }
             .calendar-date {

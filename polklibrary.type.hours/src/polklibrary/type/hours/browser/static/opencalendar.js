@@ -38,6 +38,7 @@ var OpenCalendar = {
         if (typeof CampusLocation !== 'undefined')
             ActiveLocation = CampusLocation.Active;
         
+        var TodayId = this.GetId(new Date());
         var StartDate = new Date();
         StartDate.setFullYear(this.Next.getFullYear());
         StartDate.setMonth(this.Next.getMonth());
@@ -46,18 +47,15 @@ var OpenCalendar = {
         $('.weekly-calendar').empty(); // wipe old data
         for (var i = 0; i < 7; i++){
             
-            var Year = StartDate.getFullYear() + '';
-            var Month = StartDate.getMonth() + 1; // 0-11
-            if (Month < 10)
-                Month = '0' + Month;
-            var Day = StartDate.getDate();
-            if (Day < 10)
-                Day = '0' + Day;
-            var Id = Year + '-' + Month + '-' + Day;
+            var Id = this.GetId(StartDate);
             
             var FriendlyDay = this.FriendlyDays[StartDate.getDay()];
             var FriendlyMonth = this.FriendlyMonths[StartDate.getMonth()];
             var HTML = $('<div>').addClass('calendar-info').html('<div class="calendar-date">'+FriendlyMonth + ' ' + StartDate.getDate()+'</div><div class="calendar-day">('+FriendlyDay+')</div>');
+            
+            if (TodayId == Id)
+                $(HTML).addClass('calendar-today');
+            
             
             if (typeof HoursCache[ActiveLocation] !== 'undefined'){
                 for (var j in HoursCache[ActiveLocation][Id]){
@@ -97,6 +95,18 @@ var OpenCalendar = {
         $('.weekly-calendar .calendar-info').height(MaxHeight);
        
     },
+    
+    GetId : function(DT){
+        var Year = DT.getFullYear() + '';
+        var Month = DT.getMonth() + 1; // 0-11
+        if (Month < 10)
+            Month = '0' + Month;
+        var Day = DT.getDate();
+        if (Day < 10)
+            Day = '0' + Day;
+        return Id = Year + '-' + Month + '-' + Day;
+    },
+    
     
     NoonOrMidnight : function(TimeString){
         return TimeString.replace('12:00am', 'Midnight').replace('12:00pm', 'Noon');
