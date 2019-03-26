@@ -9,7 +9,6 @@ var OpenCalendar = {
     Next : new Date(),
     
     Initialize : function(){
-        console.log("Initialize");
         this.Handlers();
         this.Show();
     },
@@ -63,27 +62,29 @@ var OpenCalendar = {
                 <div class="calendar-day">(${FriendlyDay})</div>
             `);
             
-            for (var j in HoursCache[ActiveLocation][Id]){
-                var hours = HoursCache[ActiveLocation][Id][j];
-                
-                var StartDT = new Date(hours.start * 1000);
-                var EndDT = new Date(hours.end * 1000);
-                
-                var FriendlyStartTime = this.NoonOrMidnight(StartDT.format("h:MMtt"));
-                var FriendlyEndTime = this.NoonOrMidnight(EndDT.format("h:MMtt"));
-                if (hours.message != ''){
-                    $(HTML).append(`<div class="calendar-message">${hours.message}</div>`);
+            if (typeof ActiveLocation !== 'undefined'){
+                for (var j in HoursCache[ActiveLocation][Id]){
+                    var hours = HoursCache[ActiveLocation][Id][j];
+                    
+                    var StartDT = new Date(hours.start * 1000);
+                    var EndDT = new Date(hours.end * 1000);
+                    
+                    var FriendlyStartTime = this.NoonOrMidnight(StartDT.format("h:MMtt"));
+                    var FriendlyEndTime = this.NoonOrMidnight(EndDT.format("h:MMtt"));
+                    if (hours.message != ''){
+                        $(HTML).append(`<div class="calendar-message">${hours.message}</div>`);
+                    }
+                    else if (hours.is_open) {
+                        $(HTML).append(`<div class="calendar-time">${FriendlyStartTime} to ${FriendlyEndTime}</div>`);
+                    }
+                    else {
+                        $(HTML).append(`<div class="calendar-time calendar-closed">Closed</div>`);
+                    }
+                    
                 }
-                else if (hours.is_open) {
-                    $(HTML).append(`<div class="calendar-time">${FriendlyStartTime} to ${FriendlyEndTime}</div>`);
+                if (typeof HoursCache[ActiveLocation][Id] === 'undefined'){
+                    $(HTML).append(`<div class="calendar-time calendar-tbd">TBD</div>`);
                 }
-                else {
-                    $(HTML).append(`<div class="calendar-time calendar-closed">Closed</div>`);
-                }
-                
-            }
-            if (typeof HoursCache[ActiveLocation][Id] === 'undefined'){
-                $(HTML).append(`<div class="calendar-time calendar-tbd">TBD</div>`);
             }
             
             
