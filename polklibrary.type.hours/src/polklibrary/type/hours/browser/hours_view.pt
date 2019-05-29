@@ -120,8 +120,8 @@
         
         <div id="hours-view" class="column">
             <div class="col-100" tal:content="structure context/prebody/output|nothing" tal:on-error="nothing"></div>
-            <div class="weekly-calendar"></div>
-            <div class="calendar-navigation"> 
+            <div class="col-100 weekly-calendar"></div>
+            <div class="col-100 calendar-navigation"> 
                 <div class="calendar-back">&#10151;</div>
                 <div class="calendar-next">&#10151;</div>
             </div>
