@@ -30,6 +30,7 @@
                 padding: 10px 5px;
                 text-align: center;
                 position: relative;
+                margin-bottom: 20px;
             }
             .calendar-today {
                 border: 2px solid #51baff;
@@ -46,7 +47,8 @@
                 left: -2px;
                 border: 2px solid #51baff;
                 text-align: center;
-                border-radius: 0 0 5px 5px
+                border-radius: 0 0 5px 5px;
+                z-index: 3;
             }
             .calendar-date {
                 font-weight: bold;
@@ -117,6 +119,7 @@
 	<metal:content fill-slot="content-core">
         
         <div id="hours-view" class="column">
+            <div class="col-100" tal:content="structure context/prebody/output|nothing" tal:on-error="nothing"></div>
             <div class="weekly-calendar"></div>
             <div class="calendar-navigation"> 
                 <div class="calendar-back">&#10151;</div>

@@ -19,8 +19,15 @@ class IHours(model.Schema):
             required=False,
         )
         
+    prebody = RichText(
+            title=u"Above Body",
+            default_mime_type='text/structured',
+            required=False,
+            default=u"<p></p>",
+        )
+        
     body = RichText(
-            title=u"Body",
+            title=u"Below Body",
             default_mime_type='text/structured',
             required=False,
             default=u"<p></p>",
