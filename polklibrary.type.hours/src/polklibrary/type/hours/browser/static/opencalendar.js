@@ -23,18 +23,14 @@ var OpenCalendar = {
     },
     
     IncreaseWeek : function(){
-        console.log(this.Next);
         var tmp = new Date(this.Next);
         this.Next = new Date(tmp.setDate(tmp.getDate() + 7)); 
-        console.log(this.Next);
         this.Show();
     },
     
     DecreaseWeek : function(){
-        console.log(this.Next);
         var tmp = new Date(this.Next);
         this.Next = new Date(tmp.setDate(tmp.getDate() - 7)); 
-        console.log(this.Next);
         this.Show();
     },
     
@@ -46,7 +42,6 @@ var OpenCalendar = {
         
         var TodayId = this.GetId(new Date());
         var StartDate = new Date(this.Next);
-        console.log(StartDate);
         
         $('.weekly-calendar').empty(); // wipe old data
         for (var i = 0; i < 7; i++){
