@@ -23,12 +23,18 @@ var OpenCalendar = {
     },
     
     IncreaseWeek : function(){
-        this.Next.setDate(this.Next.getDate() + 7); 
+        console.log(this.Next);
+        var tmp = new Date(this.Next);
+        this.Next = new Date(tmp.setDate(tmp.getDate() + 7)); 
+        console.log(this.Next);
         this.Show();
     },
     
     DecreaseWeek : function(){
-        this.Next.setDate(this.Next.getDate() - 7); 
+        console.log(this.Next);
+        var tmp = new Date(this.Next);
+        this.Next = new Date(tmp.setDate(tmp.getDate() - 7)); 
+        console.log(this.Next);
         this.Show();
     },
     
@@ -39,16 +45,13 @@ var OpenCalendar = {
             ActiveLocation = CampusLocation.Active;
         
         var TodayId = this.GetId(new Date());
-        var StartDate = new Date();
-        StartDate.setFullYear(this.Next.getFullYear());
-        StartDate.setMonth(this.Next.getMonth());
-        StartDate.setDate(this.Next.getDate());
+        var StartDate = new Date(this.Next);
+        console.log(StartDate);
         
         $('.weekly-calendar').empty(); // wipe old data
         for (var i = 0; i < 7; i++){
             
-            var Id = this.GetId(StartDate);
-            
+            var Id = this.GetId(StartDate);            
             var FriendlyDay = this.FriendlyDays[StartDate.getDay()];
             var FriendlyMonth = this.FriendlyMonths[StartDate.getMonth()];
             var HTML = $('<div>').addClass('calendar-info').html('<div class="calendar-date">'+FriendlyMonth + ' ' + StartDate.getDate()+'</div><div class="calendar-day">('+FriendlyDay+')</div>');
