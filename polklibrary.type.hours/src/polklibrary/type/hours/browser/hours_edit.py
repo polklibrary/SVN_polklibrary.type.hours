@@ -21,7 +21,8 @@ class HoursEdit(BrowserView):
             self.context.csv = newcsv
             self.context.reindexObject()
             api.portal.show_message(message='Hours Saved', request=self.request)
-        
+            self.csv_to_cache(self.context)
+            
         return self.template()
 
 
@@ -33,45 +34,43 @@ class HoursEdit(BrowserView):
         return json.dumps(data)
     
     
-    # def csv_to_cache(self, obj):
-        # cache = {}
-        # if obj.cached == None or obj.cached == "" or obj.cached == {}:
-
-            # reader = csv.reader(StringIO.StringIO(obj.csv), csv.excel)
-            # for library, startdate, start, end, message in reader:
+    def csv_to_cache(self, obj):
+        cache = {}
+        reader = csv.reader(StringIO.StringIO(obj.csv), csv.excel)
+        for library, startdate, start, end, message in reader:
+        
+            lm = library.encode('ascii','ignore')
             
-                # lm = library.encode('ascii','ignore')
-                
-                # # if library doesn't exist, add it
-                # if lm not in cache:
-                    # cache[lm] = {}
-                
-                # # if startdate doesn't exist, add it
-                # if startdate not in cache[lm]:
-                    # cache[lm][startdate] = []
-                    
-                # start_timestamp = ""
-                # end_timestamp = ""
-                # is_open = (start != '' and end != '')
-                
-                # if is_open:
-                    # start_dt = datetime.datetime.strptime(startdate + ' ' + start, '%Y-%m-%d %H:%M')
-                    # end_dt = datetime.datetime.strptime(startdate + ' ' + end, '%Y-%m-%d %H:%M')
-                    # if end == '00:00' or end == '0:00' or end == '0':
-                        # end_dt = end_dt + datetime.timedelta(days=1)
-                
-                # cache[lm][startdate].append({
-                    # 'start': int(time.mktime(start_dt.timetuple())),
-                    # 'end': int(time.mktime(end_dt.timetuple())),
-                    # 'message': message,
-                    # 'is_open': is_open,
-                    # 'tz': '',
-                # })
+            # if library doesn't exist, add it
+            if lm not in cache:
+                cache[lm] = {}
             
-            # # should only run once if it was purged by the user.
-            # with api.env.adopt_roles(roles=['Manager']):
-                # self.context.cached = json.dumps(cache)
-                # self.context.reindexObject()
+            # if startdate doesn't exist, add it
+            if startdate not in cache[lm]:
+                cache[lm][startdate] = []
+                
+            start_timestamp = ""
+            end_timestamp = ""
+            is_open = (start != '' and end != '')
+            
+            if is_open:
+                start_dt = datetime.datetime.strptime(startdate + ' ' + start, '%Y-%m-%d %H:%M')
+                end_dt = datetime.datetime.strptime(startdate + ' ' + end, '%Y-%m-%d %H:%M')
+                if end == '00:00' or end == '0:00' or end == '0':
+                    end_dt = end_dt + datetime.timedelta(days=1)
+            
+            cache[lm][startdate].append({
+                'start': int(time.mktime(start_dt.timetuple())),
+                'end': int(time.mktime(end_dt.timetuple())),
+                'message': message,
+                'is_open': is_open,
+                'tz': '',
+            })
+        
+        # should only run once if it was purged by the user.
+        with api.env.adopt_roles(roles=['Manager']):
+            self.context.cached = json.dumps(cache)
+            self.context.reindexObject()
             
     @property
     def portal(self):
