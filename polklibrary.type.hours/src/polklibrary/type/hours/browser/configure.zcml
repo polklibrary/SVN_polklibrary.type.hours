@@ -7,6 +7,13 @@
     
     <browser:page
         for="polklibrary.type.hours.models.hours.IHours"
+        name="hours_edit"
+        class=".hours_edit.HoursEdit"
+        permission="cmf.ModifyPortalContent"
+        />
+        
+    <browser:page
+        for="polklibrary.type.hours.models.hours.IHours"
         name="getHours"
         class=".feed.FeedView"
         permission="zope2.View"
