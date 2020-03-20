@@ -44,8 +44,8 @@ var HoursEditor = {
     
     save_btn : function(){
         $('#hours-editor-save').on('click',function(){
-            console.log('Save');
             HoursEditor.replace_or_add_hours();
+            $('#hours-editor').hide();
         });  
     },
     
