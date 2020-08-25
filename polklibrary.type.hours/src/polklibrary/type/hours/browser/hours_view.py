@@ -41,6 +41,10 @@ class HoursView(BrowserView):
                 end_timestamp = ""
                 is_open = (start != '' and end != '')
                 
+                #defaults 
+                start_dt = datetime.datetime.strptime("2020-01-01 01:00", '%Y-%m-%d %H:%M')
+                end_dt = datetime.datetime.strptime("2020-01-01 01:00", '%Y-%m-%d %H:%M')
+                
                 if is_open:
                     start_dt = datetime.datetime.strptime(startdate + ' ' + start, '%Y-%m-%d %H:%M')
                     end_dt = datetime.datetime.strptime(startdate + ' ' + end, '%Y-%m-%d %H:%M')
