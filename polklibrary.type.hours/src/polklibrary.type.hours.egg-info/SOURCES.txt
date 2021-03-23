@@ -25,10 +25,14 @@ src/polklibrary/type/hours/testing.py
 src/polklibrary/type/hours/browser/__init__.py
 src/polklibrary/type/hours/browser/configure.zcml
 src/polklibrary/type/hours/browser/feed.py
+src/polklibrary/type/hours/browser/hours_edit.pt
+src/polklibrary/type/hours/browser/hours_edit.py
 src/polklibrary/type/hours/browser/hours_view.pt
 src/polklibrary/type/hours/browser/hours_view.py
 src/polklibrary/type/hours/browser/overrides/.gitkeep
 src/polklibrary/type/hours/browser/static/.gitkeep
+src/polklibrary/type/hours/browser/static/editcalendar.css
+src/polklibrary/type/hours/browser/static/editcalendar.js
 src/polklibrary/type/hours/browser/static/opencalendar.js
 src/polklibrary/type/hours/locales/polklibrary.type.hours.pot
 src/polklibrary/type/hours/locales/update.sh

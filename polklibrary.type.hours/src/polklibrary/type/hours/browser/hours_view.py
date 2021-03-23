@@ -5,7 +5,7 @@ from Products.Five import BrowserView
 from zope.interface import alsoProvides
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from polklibrary.type.coursepages.utility import MailMe
-import json, logging, csv, StringIO, datetime, time, json
+import json, logging, csv, io, datetime, time, json
 
 logger = logging.getLogger("Plone")
 
@@ -24,10 +24,10 @@ class HoursView(BrowserView):
         cache = {}
         if obj.cached == None or obj.cached == "" or obj.cached == {}:
 
-            reader = csv.reader(StringIO.StringIO(obj.csv), csv.excel)
+            reader = csv.reader(io.StringIO(obj.csv), csv.excel)
             for library, startdate, start, end, message in reader:
             
-                lm = library.encode('ascii','ignore')
+                lm = library.encode('ascii','ignore').decode('ascii')
                 
                 # if library doesn't exist, add it
                 if lm not in cache:
