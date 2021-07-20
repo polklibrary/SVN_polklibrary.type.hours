@@ -10,6 +10,8 @@ logger = logging.getLogger("Plone")
 class FeedView(BrowserView):
 
     def __call__(self):
+        self.request.response.setHeader('Content-Type', 'application/json')
+        self.request.response.setHeader('Access-Control-Allow-Origin', '*')
         fmt = self.request.form.get('fmt','')
         callback = self.request.form.get('callback','?')
         
